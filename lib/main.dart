@@ -4,6 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../model/theme_provider.dart';
 import 'model/navbar_index_provider.dart';
+import 'view/pages/alarms_page.dart';
+import 'view/pages/settings_page.dart';
+import 'view/pages/sleep_page.dart';
+import 'view/pages/stats_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,20 +38,10 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   final List<Widget> _navPages = [
-    Container(),
-    Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Consumer<ThemeProvider>(
-              builder: (context, theme, child) => ElevatedButton(
-                  onPressed: () => theme.changeTheme(),
-                  child: const Text('Changer de theme')))
-        ],
-      ),
-    ),
-    Container(),
-    Container(),
+    const AlarmsPage(),
+    const SleepPage(),
+    const StatsPage(),
+    const SettingsPage(),
   ];
 
   @override
