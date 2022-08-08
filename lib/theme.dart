@@ -3,33 +3,29 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'constants.dart';
 
-// Our light/Primary Theme
 ThemeData themeData(BuildContext context) {
   return ThemeData(
-    appBarTheme: appBarTheme,
-    primaryColor: kPrimaryColor,
-    scaffoldBackgroundColor: Colors.white,
-    backgroundColor: Colors.white,
-    iconTheme: const IconThemeData(color: kBodyTextColorLight),
-    primaryIconTheme: const IconThemeData(color: kPrimaryIconLightColor),
-    textTheme: GoogleFonts.latoTextTheme().copyWith(
-      bodyText1: const TextStyle(color: kBodyTextColorLight),
-      bodyText2: const TextStyle(color: kBodyTextColorLight),
-      headline4: const TextStyle(color: kTitleTextLightColor, fontSize: 32),
-      headline1: const TextStyle(color: kTitleTextLightColor, fontSize: 80),
+    scaffoldBackgroundColor: const Color(0xFFEC887D),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(0.5),
+      type: BottomNavigationBarType.fixed,
+      elevation: 0,
     ),
-    colorScheme: const ColorScheme.light(
-      secondary: kSecondaryLightColor,
-    ).copyWith(secondary: kAccentLightColor),
+    textTheme: GoogleFonts.quicksandTextTheme().apply(bodyColor: Colors.white).copyWith(
+        // bodyText1: const TextStyle(color: kBodyTextColorLight),
+        // bodyText2: const TextStyle(color: kBodyTextColorLight),
+        // headline4: const TextStyle(color: kTitleTextLightColor, fontSize: 32),
+        // headline1: const TextStyle(color: kTitleTextLightColor, fontSize: 80),
+        ),
   );
 }
 
-// Dark Them
 ThemeData darkThemeData(BuildContext context) {
   return ThemeData.dark().copyWith(
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: const Color(0xFF0D0C0E),
-    appBarTheme: appBarTheme,
     backgroundColor: kBackgroundDarkColor,
     iconTheme: const IconThemeData(color: kBodyTextColorDark),
     primaryIconTheme: const IconThemeData(color: kPrimaryIconDarkColor),
@@ -45,6 +41,3 @@ ThemeData darkThemeData(BuildContext context) {
     ).copyWith(secondary: kAccentDarkColor),
   );
 }
-
-AppBarTheme appBarTheme =
-    const AppBarTheme(color: Colors.transparent, elevation: 0);

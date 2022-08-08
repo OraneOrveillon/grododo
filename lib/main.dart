@@ -3,6 +3,7 @@ import 'package:grododo/theme.dart';
 import 'package:provider/provider.dart';
 
 import '../model/theme_provider.dart';
+import 'model/navbar_index_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,19 +12,18 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => MyThemeModel(),
-      child: Consumer<MyThemeModel>(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
         builder: (context, theme, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Grododo',
           theme: themeData(context),
           darkTheme: darkThemeData(context),
           themeMode: theme.isLightTheme ? ThemeMode.light : ThemeMode.dark,
-          home: const MyHomePage(),
+          home: MyHomePage(),
         ),
       ),
     );
@@ -31,31 +31,70 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
+
+  final List<Widget> _navPages = [
+    Container(),
+    Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Consumer<ThemeProvider>(
+              builder: (context, theme, child) => ElevatedButton(
+                  onPressed: () => theme.changeTheme(),
+                  child: const Text('Changer de theme')))
+        ],
+      ),
+    ),
+    Container(),
+    Container(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Grododo'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'You have pushed the button this many times:',
+    return ChangeNotifierProvider(
+      create: (_) => NavigationBarIndexProvider(initialIndex: 1),
+      child: Consumer<NavigationBarIndexProvider>(
+        builder: (context, indexProvider, child) => Scaffold(
+          extendBody: true,
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: indexProvider.index,
+            onTap: (index) => indexProvider.updateIndex(newIndex: index),
+            items: const [
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/icons/alarm.png')),
+                label: 'Alarms',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/icons/moon.png')),
+                label: 'Sleep',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/icons/stats.png')),
+                label: 'Stats',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/icons/settings.png')),
+                label: 'Settings',
+              ),
+            ],
+          ),
+          body: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent,
+                  Color(0xFF021228),
+                ],
+                // stops: [0, 1],
+              ),
             ),
-          ],
+            child: _navPages[indexProvider.index],
+          ),
         ),
       ),
-      floatingActionButton: Consumer<MyThemeModel>(
-        builder: (context, theme, child) => FloatingActionButton(
-          onPressed: () => theme.changeTheme(),
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
