@@ -6,6 +6,10 @@ import 'constants.dart';
 ThemeData themeData(BuildContext context) {
   return ThemeData(
     scaffoldBackgroundColor: const Color(0xFFEC887D),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
       selectedItemColor: Colors.white,
@@ -25,6 +29,11 @@ ThemeData themeData(BuildContext context) {
       ),
       elevation: 0,
     ),
+    splashColor: Colors.white.withOpacity(0.5),
+    iconTheme: IconThemeData(
+      color: Colors.white.withOpacity(0.8),
+    ),
+    listTileTheme: ListTileThemeData(),
     textTheme: GoogleFonts.quicksandTextTheme().apply(bodyColor: Colors.black).copyWith(
         // bodyText1: const TextStyle(color: kBodyTextColorLight),
         // bodyText2: const TextStyle(color: kBodyTextColorLight),

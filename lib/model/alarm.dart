@@ -1,5 +1,5 @@
 class Alarm {
-  final String hour;
+  final String time;
   final List<String> repetition;
   final int duration;
   bool activated;
@@ -7,7 +7,7 @@ class Alarm {
   final bool vibrator;
 
   Alarm({
-    required this.hour,
+    required this.time,
     required this.repetition,
     required this.duration,
     this.activated = true,
@@ -18,17 +18,17 @@ class Alarm {
   static List<Alarm> generateRandomAlarms() {
     return [
       Alarm(
-        hour: '9:OO',
-        repetition: [Repetition.once],
+        time: '9:OO',
+        repetition: [Repetition.none],
         duration: 20,
       ),
       Alarm(
-        hour: '6:OO',
+        time: '6:OO',
         repetition: [Repetition.monday, Repetition.thursday],
         duration: 20,
       ),
       Alarm(
-          hour: '6:3O',
+          time: '6:3O',
           repetition: [
             Repetition.monday,
             Repetition.tuesday,
@@ -38,13 +38,13 @@ class Alarm {
           ],
           duration: 20),
       Alarm(
-        hour: '5:55',
-        repetition: [Repetition.once],
+        time: '5:55',
+        repetition: [Repetition.none],
         duration: 20,
         activated: false,
       ),
       Alarm(
-        hour: '7:OO',
+        time: '7:OO',
         repetition: [Repetition.saturday, Repetition.sunday],
         duration: 20,
         activated: false,
@@ -54,7 +54,7 @@ class Alarm {
 }
 
 abstract class Repetition {
-  static const String once = 'Once';
+  static const String none = 'None';
   static const String monday = 'Mon';
   static const String tuesday = 'Tue';
   static const String wednesday = 'Wed';

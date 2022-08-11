@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'alarm.dart';
 
-class AlarmProvider extends ChangeNotifier {
+class AlarmModel extends ChangeNotifier {
   final Alarm alarm;
 
-  AlarmProvider({required this.alarm});
+  AlarmModel({required this.alarm});
 
   void updateActivated(bool activated) {
     alarm.activated = activated;

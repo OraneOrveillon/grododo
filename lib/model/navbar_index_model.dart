@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-class NavigationBarIndexProvider extends ChangeNotifier {
+class NavigationBarIndexModel extends ChangeNotifier {
   late int index;
 
-  NavigationBarIndexProvider({required int initialIndex})
-      : index = initialIndex;
+  NavigationBarIndexModel({required int initialIndex}) : index = initialIndex;
 
   void updateIndex({required int newIndex}) {
     index = newIndex;
