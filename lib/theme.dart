@@ -13,7 +13,19 @@ ThemeData themeData(BuildContext context) {
       type: BottomNavigationBarType.fixed,
       elevation: 0,
     ),
-    textTheme: GoogleFonts.quicksandTextTheme().apply(bodyColor: Colors.white).copyWith(
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.all(Colors.white),
+      trackColor: MaterialStateProperty.all(Colors.white.withOpacity(0.5)),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.black.withOpacity(0.2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0,
+    ),
+    textTheme: GoogleFonts.quicksandTextTheme().apply(bodyColor: Colors.black).copyWith(
         // bodyText1: const TextStyle(color: kBodyTextColorLight),
         // bodyText2: const TextStyle(color: kBodyTextColorLight),
         // headline4: const TextStyle(color: kTitleTextLightColor, fontSize: 32),
