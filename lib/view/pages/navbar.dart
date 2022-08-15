@@ -23,11 +23,11 @@ class NavBar extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => NavigationBarIndexModel(initialIndex: 1),
       child: Consumer<NavigationBarIndexModel>(
-        builder: (context, indexProvider, child) => Scaffold(
+        builder: (context, indexModel, child) => Scaffold(
           extendBody: true,
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex: indexProvider.index,
-            onTap: (index) => indexProvider.updateIndex(newIndex: index),
+            currentIndex: indexModel.index,
+            onTap: (index) => indexModel.updateIndex(newIndex: index),
             items: const [
               BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/icons/alarm.png')),
@@ -48,7 +48,7 @@ class NavBar extends StatelessWidget {
             ],
           ),
           body: BackgroundGradient(
-            child: _navPages[indexProvider.index],
+            child: _navPages[indexModel.index],
           ),
         ),
       ),

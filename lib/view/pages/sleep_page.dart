@@ -13,8 +13,8 @@ class SleepPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Consumer<ThemeModel>(
-              builder: (context, theme, child) => ElevatedButton(
-                  onPressed: () => theme.changeTheme(), child: const Text('Changer de theme')))
+              builder: (context, themeModel, child) => ElevatedButton(
+                  onPressed: () => themeModel.changeTheme(), child: const Text('Changer de theme')))
         ],
       ),
     );

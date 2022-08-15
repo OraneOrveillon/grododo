@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+
 class Alarm {
-  final String time;
-  final List<String> repetition;
+  TimeOfDay time;
+  final Repetition repetition;
   final int duration;
   bool activated;
   final bool fade;
@@ -18,34 +20,34 @@ class Alarm {
   static List<Alarm> generateRandomAlarms() {
     return [
       Alarm(
-        time: '9:OO',
-        repetition: [Repetition.none],
+        time: const TimeOfDay(hour: 9, minute: 0),
+        repetition: Repetition(),
         duration: 20,
       ),
       Alarm(
-        time: '6:OO',
-        repetition: [Repetition.monday, Repetition.thursday],
+        time: const TimeOfDay(hour: 6, minute: 0),
+        repetition: Repetition(monday: true, thursday: true),
         duration: 20,
       ),
       Alarm(
-          time: '6:3O',
-          repetition: [
-            Repetition.monday,
-            Repetition.tuesday,
-            Repetition.wednesday,
-            Repetition.thursday,
-            Repetition.friday,
-          ],
+          time: const TimeOfDay(hour: 6, minute: 30),
+          repetition: Repetition(
+            monday: true,
+            tuesday: true,
+            wednesday: true,
+            thursday: true,
+            friday: true,
+          ),
           duration: 20),
       Alarm(
-        time: '5:55',
-        repetition: [Repetition.none],
+        time: const TimeOfDay(hour: 5, minute: 55),
+        repetition: Repetition(),
         duration: 20,
         activated: false,
       ),
       Alarm(
-        time: '7:OO',
-        repetition: [Repetition.saturday, Repetition.sunday],
+        time: const TimeOfDay(hour: 7, minute: 0),
+        repetition: Repetition(saturday: true, sunday: true),
         duration: 20,
         activated: false,
       ),
@@ -53,13 +55,28 @@ class Alarm {
   }
 }
 
-abstract class Repetition {
-  static const String none = 'None';
-  static const String monday = 'Mon';
-  static const String tuesday = 'Tue';
-  static const String wednesday = 'Wed';
-  static const String thursday = 'Thu';
-  static const String friday = 'Fri';
-  static const String saturday = 'Sat';
-  static const String sunday = 'Sun';
+class Repetition {
+  bool monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+
+  Repetition({
+    this.monday = false,
+    this.tuesday = false,
+    this.wednesday = false,
+    this.thursday = false,
+    this.friday = false,
+    this.saturday = false,
+    this.sunday = false,
+  });
+
+  @override
+  String toString() {
+    return '${!monday && !tuesday && !wednesday && !thursday && !friday && !saturday && !sunday ? 'None' : ''}'
+        '${monday ? 'Mon ' : ''}'
+        '${tuesday ? 'Tue ' : ''}'
+        '${wednesday ? 'Wed ' : ''}'
+        '${thursday ? 'Thu ' : ''}'
+        '${friday ? 'Fri ' : ''}'
+        '${saturday ? 'Sat ' : ''}'
+        '${sunday ? 'Sun ' : ''}';
+  }
 }

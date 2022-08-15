@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => ThemeModel(),
       child: Consumer<ThemeModel>(
-        builder: (context, theme, child) => MaterialApp(
+        builder: (context, themeModel, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Grododo',
           theme: themeData(context),
           darkTheme: darkThemeData(context),
-          themeMode: theme.isLightTheme ? ThemeMode.light : ThemeMode.dark,
+          themeMode: themeModel.isLightTheme ? ThemeMode.light : ThemeMode.dark,
           home: NavBar(),
         ),
       ),

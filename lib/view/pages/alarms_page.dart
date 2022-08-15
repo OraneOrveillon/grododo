@@ -30,19 +30,19 @@ class AlarmsPage extends StatelessWidget {
             child: ChangeNotifierProvider(
               create: (_) => AlarmModel(alarm: alarm),
               child: Consumer<AlarmModel>(
-                builder: (context, alarmProvider, child) => Row(
+                builder: (context, alarmModel, child) => Row(
                   children: [
                     Expanded(
                       child: ListTile(
-                        title: Text(alarm.time),
-                        subtitle: Text(alarm.repetition.join(', ')),
+                        title: Text(alarmModel.alarm.time.format(context)),
+                        subtitle: Text(alarmModel.alarm.repetition.toString()),
                       ),
                     ),
                     Switch(
                       inactiveTrackColor: Colors.black.withOpacity(0.2),
-                      value: alarmProvider.alarm.activated,
+                      value: alarmModel.alarm.activated,
                       onChanged: (value) {
-                        alarmProvider.updateActivated(value);
+                        alarmModel.updateActivated(value);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             margin: const EdgeInsets.fromLTRB(50, 0, 50, 10),
@@ -64,7 +64,7 @@ class AlarmsPage extends StatelessWidget {
                         MaterialPageRoute(
                           /// To pass a model through a different route
                           builder: (context) => ChangeNotifierProvider<AlarmModel>.value(
-                            value: alarmProvider,
+                            value: alarmModel,
                             child: const AlarmSettingsPage(),
                           ),
                         ),

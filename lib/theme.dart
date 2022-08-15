@@ -33,7 +33,28 @@ ThemeData themeData(BuildContext context) {
     iconTheme: IconThemeData(
       color: Colors.white.withOpacity(0.8),
     ),
-    listTileTheme: ListTileThemeData(),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        primary: Colors.white,
+      ),
+    ),
+    timePickerTheme: TimePickerThemeData(
+      backgroundColor: Colors.white.withOpacity(0.2),
+      dialBackgroundColor: Colors.white.withOpacity(0.2),
+      dialHandColor: const Color(0xFFEC887D),
+      entryModeIconColor: Colors.white,
+      dayPeriodColor: const Color(0xFFEC887D),
+      dayPeriodBorderSide: const BorderSide(
+        color: Colors.transparent,
+      ),
+      dayPeriodTextColor: Colors.white,
+      hourMinuteColor: Colors.white.withOpacity(0.2),
+      hourMinuteTextColor: Colors.black,
+      helpTextStyle: const TextStyle(color: Colors.white),
+      // inputDecorationTheme: InputDecorationTheme(
+      //     // fillColor: Colors.red,
+      //     ),
+    ),
     textTheme: GoogleFonts.quicksandTextTheme().apply(bodyColor: Colors.black).copyWith(
         // bodyText1: const TextStyle(color: kBodyTextColorLight),
         // bodyText2: const TextStyle(color: kBodyTextColorLight),
