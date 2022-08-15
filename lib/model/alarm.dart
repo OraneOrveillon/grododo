@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class Alarm {
   TimeOfDay time;
-  final Repetition repetition;
-  final int duration;
+  Repetition repetition;
+  int duration;
   bool activated;
-  final bool fade;
-  final bool vibrator;
+  bool fade;
+  bool vibrator;
 
   Alarm({
     required this.time,

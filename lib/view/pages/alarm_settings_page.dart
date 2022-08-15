@@ -71,8 +71,7 @@ class AlarmSettingsPage extends StatelessWidget {
       initialEntryMode: TimePickerEntryMode.dial,
     );
     if (newTime != null && newTime != alarmModel.alarm.time) {
-      // FIXME : Ne se met pas à jour directement
-      alarmModel.alarm.time = newTime;
+      alarmModel.updateTime(newTime);
     }
   }
 
@@ -92,7 +91,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.monday,
-                onChanged: (value) => alarmModel.alarm.repetition.monday = value!,
+                onChanged: (value) {
+                  repetition.monday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Monday'),
             ],
@@ -101,7 +103,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.tuesday,
-                onChanged: (value) => alarmModel.alarm.repetition.tuesday = value!,
+                onChanged: (value) {
+                  repetition.tuesday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Tuesday'),
             ],
@@ -110,7 +115,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.wednesday,
-                onChanged: (value) => alarmModel.alarm.repetition.wednesday = value!,
+                onChanged: (value) {
+                  repetition.wednesday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Wednesday'),
             ],
@@ -119,7 +127,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.thursday,
-                onChanged: (value) => alarmModel.alarm.repetition.thursday = value!,
+                onChanged: (value) {
+                  repetition.thursday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Thursday'),
             ],
@@ -128,7 +139,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.friday,
-                onChanged: (value) => alarmModel.alarm.repetition.friday = value!,
+                onChanged: (value) {
+                  repetition.friday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Friday'),
             ],
@@ -137,7 +151,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.saturday,
-                onChanged: (value) => alarmModel.alarm.repetition.saturday = value!,
+                onChanged: (value) {
+                  repetition.saturday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Saturday'),
             ],
@@ -146,7 +163,10 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               Checkbox(
                 value: repetition.sunday,
-                onChanged: (value) => alarmModel.alarm.repetition.sunday = value!,
+                onChanged: (value) {
+                  repetition.sunday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
               const Text('Sunday'),
             ],
