@@ -19,18 +19,20 @@ class AlarmSettingsPage extends StatelessWidget {
         child: Consumer<AlarmModel>(
           builder: (context, alarmModel, child) => Column(
             children: [
-              ListTile(
-                title: const Text('Time'),
-                subtitle: Text(alarmModel.alarm.time.format(context)),
+              _buildSetting(
+                context: context,
+                title: 'Time',
+                subtitle: alarmModel.alarm.time.format(context),
                 leading: const Icon(Icons.access_time_outlined),
                 onTap: () => _selectTime(
                   context: context,
                   alarmModel: alarmModel,
                 ),
               ),
-              ListTile(
-                title: const Text('Repetition'),
-                subtitle: Text(alarmModel.alarm.repetition.toString()),
+              _buildSetting(
+                context: context,
+                title: 'Repetition',
+                subtitle: '${alarmModel.alarm.repetition}',
                 leading: const Icon(Icons.repeat),
                 onTap: () => showDialog(
                   context: context,
@@ -42,9 +44,10 @@ class AlarmSettingsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              ListTile(
-                title: const Text('Duration'),
-                subtitle: Text('${alarmModel.alarm.duration}'),
+              _buildSetting(
+                context: context,
+                title: 'Duration',
+                subtitle: '${alarmModel.alarm.duration}',
                 leading: const Icon(Icons.timer),
                 onTap: () => showDialog(
                   context: context,
@@ -54,16 +57,18 @@ class AlarmSettingsPage extends StatelessWidget {
                   ),
                 ),
               ),
-              ListTile(
-                title: const Text('Fade'),
+              _buildSetting(
+                context: context,
+                title: 'Fade',
                 leading: const Icon(Icons.volume_down),
                 trailing: Switch(
                   value: alarmModel.alarm.fade,
                   onChanged: (value) => alarmModel.updateFade(value),
                 ),
               ),
-              ListTile(
-                title: const Text('Vibrator'),
+              _buildSetting(
+                context: context,
+                title: 'Vibrator',
                 leading: const Icon(Icons.vibration),
                 trailing: Switch(
                   value: alarmModel.alarm.vibrator,
@@ -77,7 +82,24 @@ class AlarmSettingsPage extends StatelessWidget {
     );
   }
 
-  _selectTime({required BuildContext context, required AlarmModel alarmModel}) async {
+  Widget _buildSetting({
+    required BuildContext context,
+    required String title,
+    String? subtitle,
+    required Widget leading,
+    Widget? trailing,
+    Function()? onTap,
+  }) {
+    return ListTile(
+      title: Text(title),
+      subtitle: subtitle != null ? Text(subtitle) : null,
+      leading: leading,
+      trailing: trailing,
+      onTap: onTap,
+    );
+  }
+
+  void _selectTime({required BuildContext context, required AlarmModel alarmModel}) async {
     final TimeOfDay? newTime = await showTimePicker(
       context: context,
       initialTime: alarmModel.alarm.time,
@@ -98,89 +120,68 @@ class AlarmSettingsPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.monday,
-                    onChanged: (value) {
-                      repetition.monday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Monday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.monday,
+                day: 'Monday',
+                onChanged: (value) {
+                  repetition.monday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.tuesday,
-                    onChanged: (value) {
-                      repetition.tuesday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Tuesday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.tuesday,
+                day: 'Tuesday',
+                onChanged: (value) {
+                  repetition.tuesday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.wednesday,
-                    onChanged: (value) {
-                      repetition.wednesday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Wednesday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.wednesday,
+                day: 'Wednesday',
+                onChanged: (value) {
+                  repetition.wednesday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.thursday,
-                    onChanged: (value) {
-                      repetition.thursday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Thursday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.thursday,
+                day: 'Thursday',
+                onChanged: (value) {
+                  repetition.thursday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.friday,
-                    onChanged: (value) {
-                      repetition.friday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Friday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.friday,
+                day: 'Friday',
+                onChanged: (value) {
+                  repetition.friday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.saturday,
-                    onChanged: (value) {
-                      repetition.saturday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Saturday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.saturday,
+                day: 'Saturday',
+                onChanged: (value) {
+                  repetition.saturday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: repetition.sunday,
-                    onChanged: (value) {
-                      repetition.sunday = value!;
-                      alarmModel.updateRepetition(repetition);
-                    },
-                  ),
-                  const Text('Sunday'),
-                ],
+              _buildRepetitionDay(
+                context: context,
+                value: repetition.sunday,
+                day: 'Sunday',
+                onChanged: (value) {
+                  repetition.sunday = value!;
+                  alarmModel.updateRepetition(repetition);
+                },
               ),
             ],
           ),
@@ -208,6 +209,23 @@ class AlarmSettingsPage extends StatelessWidget {
     );
   }
 
+  Widget _buildRepetitionDay({
+    required BuildContext context,
+    required bool value,
+    required String day,
+    required Function(bool?) onChanged,
+  }) {
+    return Row(
+      children: [
+        Checkbox(
+          value: value,
+          onChanged: onChanged,
+        ),
+        Text(day),
+      ],
+    );
+  }
+
   Widget _selectDuration({required BuildContext context}) {
     return Consumer<AlarmModel>(
       builder: (context, alarmModel, child) {
@@ -222,6 +240,13 @@ class AlarmSettingsPage extends StatelessWidget {
             onChanged: (newValue) => value = newValue,
           ),
           actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'CANCEL',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
             TextButton(
               onPressed: () {
                 alarmModel.updateDuration(value.toInt());
