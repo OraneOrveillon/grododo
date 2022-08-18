@@ -57,12 +57,18 @@ class AlarmSettingsPage extends StatelessWidget {
               ListTile(
                 title: const Text('Fade'),
                 leading: const Icon(Icons.volume_down),
-                trailing: Switch(value: alarmModel.alarm.fade, onChanged: (value) {}),
+                trailing: Switch(
+                  value: alarmModel.alarm.fade,
+                  onChanged: (value) => alarmModel.updateFade(value),
+                ),
               ),
               ListTile(
                 title: const Text('Vibrator'),
                 leading: const Icon(Icons.vibration),
-                trailing: Switch(value: alarmModel.alarm.vibrator, onChanged: (value) {}),
+                trailing: Switch(
+                  value: alarmModel.alarm.vibrator,
+                  onChanged: (value) => alarmModel.updateVibrator(value),
+                ),
               ),
             ],
           ),
