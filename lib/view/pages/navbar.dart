@@ -27,11 +27,10 @@ class NavBar extends StatelessWidget {
       child: Consumer<NavigationBarIndexModel>(
         builder: (context, indexModel, child) => Scaffold(
           appBar: AppBar(
-            title: Center(
-              child: Text(_labels[indexModel.index]),
-            ),
+            title: Text(_labels[indexModel.index]),
           ),
           extendBody: true,
+          extendBodyBehindAppBar: true,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: indexModel.index,
             onTap: (index) => indexModel.updateIndex(newIndex: index),

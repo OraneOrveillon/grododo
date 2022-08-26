@@ -12,12 +12,14 @@ class AlarmSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text('Alarm settings'),
       ),
       body: BackgroundGradient(
         child: Consumer<AlarmModel>(
-          builder: (context, alarmModel, child) => Column(
+          builder: (context, alarmModel, child) => ListView(
             children: [
               _buildSetting(
                 context: context,

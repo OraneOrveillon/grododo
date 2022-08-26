@@ -9,10 +9,10 @@ ThemeData themeData(BuildContext context) {
       primary: Color(0xFFEC887D),
       secondary: Color(0xFF021228),
     ),
-    scaffoldBackgroundColor: const Color(0xFFEC887D),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      centerTitle: true,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
@@ -69,10 +69,26 @@ ThemeData themeData(BuildContext context) {
 }
 
 ThemeData darkThemeData(BuildContext context) {
-  return ThemeData.dark().copyWith(
+  return ThemeData(
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xFF021228),
+      secondary: Color(0xFF021228),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+    ),
     primaryColor: kPrimaryColor,
-    scaffoldBackgroundColor: const Color(0xFF0D0C0E),
-    backgroundColor: kBackgroundDarkColor,
+    // scaffoldBackgroundColor: const Color(0xFF0D0C0E),
+    // backgroundColor: kBackgroundDarkColor,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(0.5),
+      type: BottomNavigationBarType.fixed,
+      elevation: 0,
+    ),
     iconTheme: const IconThemeData(color: kBodyTextColorDark),
     primaryIconTheme: const IconThemeData(color: kPrimaryIconDarkColor),
     textTheme: GoogleFonts.latoTextTheme().copyWith(
@@ -81,9 +97,5 @@ ThemeData darkThemeData(BuildContext context) {
       headline4: const TextStyle(color: kTitleTextDarkColor, fontSize: 32),
       headline1: const TextStyle(color: kTitleTextDarkColor, fontSize: 80),
     ),
-    colorScheme: const ColorScheme.light(
-      secondary: kSecondaryDarkColor,
-      surface: kSurfaceDarkColor,
-    ).copyWith(secondary: kAccentDarkColor),
   );
 }
