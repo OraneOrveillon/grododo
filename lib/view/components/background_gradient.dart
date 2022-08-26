@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundGradient extends StatelessWidget {
@@ -9,13 +8,13 @@ class BackgroundGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.transparent,
-            Color(0xFF021228),
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.secondary,
           ],
         ),
       ),

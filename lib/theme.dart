@@ -5,6 +5,10 @@ import 'constants.dart';
 
 ThemeData themeData(BuildContext context) {
   return ThemeData(
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xFFEC887D),
+      secondary: Color(0xFF021228),
+    ),
     scaffoldBackgroundColor: const Color(0xFFEC887D),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,

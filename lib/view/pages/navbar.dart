@@ -18,32 +18,39 @@ class NavBar extends StatelessWidget {
     const SettingsPage(),
   ];
 
+  final List<String> _labels = ['Alarms', 'Sleep', 'Statistics', 'Settings'];
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => NavigationBarIndexModel(initialIndex: 1),
       child: Consumer<NavigationBarIndexModel>(
         builder: (context, indexModel, child) => Scaffold(
+          appBar: AppBar(
+            title: Center(
+              child: Text(_labels[indexModel.index]),
+            ),
+          ),
           extendBody: true,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: indexModel.index,
             onTap: (index) => indexModel.updateIndex(newIndex: index),
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/alarm.png')),
-                label: 'Alarms',
+                icon: const ImageIcon(AssetImage('assets/icons/alarm.png')),
+                label: _labels[0],
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/moon.png')),
-                label: 'Sleep',
+                icon: const ImageIcon(AssetImage('assets/icons/moon.png')),
+                label: _labels[1],
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/stats.png')),
-                label: 'Stats',
+                icon: const ImageIcon(AssetImage('assets/icons/stats.png')),
+                label: _labels[2],
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/settings.png')),
-                label: 'Settings',
+                icon: const ImageIcon(AssetImage('assets/icons/settings.png')),
+                label: _labels[3],
               ),
             ],
           ),
