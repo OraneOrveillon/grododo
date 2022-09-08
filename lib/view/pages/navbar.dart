@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/navbar_index_model.dart';
-import '../components/background_gradient.dart';
+import '../components/background.dart';
 import 'alarms_page.dart';
 import 'settings_page.dart';
 import 'sleep_page.dart';
@@ -26,11 +26,7 @@ class NavBar extends StatelessWidget {
       create: (_) => NavigationBarIndexModel(initialIndex: 1),
       child: Consumer<NavigationBarIndexModel>(
         builder: (context, indexModel, child) => Scaffold(
-          appBar: AppBar(
-            title: Text(_labels[indexModel.index]),
-          ),
           extendBody: true,
-          extendBodyBehindAppBar: true,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: indexModel.index,
             onTap: (index) => indexModel.updateIndex(newIndex: index),
@@ -53,7 +49,7 @@ class NavBar extends StatelessWidget {
               ),
             ],
           ),
-          body: BackgroundGradient(
+          body: Background(
             child: _navPages[indexModel.index],
           ),
         ),

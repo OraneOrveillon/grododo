@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/alarm.dart';
 import '../../model/alarm_model.dart';
-import '../components/background_gradient.dart';
+import '../components/background.dart';
 
 class AlarmSettingsPage extends StatelessWidget {
   const AlarmSettingsPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class AlarmSettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Alarm settings'),
       ),
-      body: BackgroundGradient(
+      body: Background(
         child: Consumer<AlarmModel>(
           builder: (context, alarmModel, child) => ListView(
             children: [
@@ -190,14 +190,14 @@ class AlarmSettingsPage extends StatelessWidget {
           actions: [
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.black,
+                primary: Theme.of(context).colorScheme.tertiary,
               ),
               child: const Text('CANCEL'),
               onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.black,
+                primary: Theme.of(context).colorScheme.tertiary,
               ),
               child: const Text('OK'),
               onPressed: () {
@@ -244,9 +244,9 @@ class AlarmSettingsPage extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text(
+              child: Text(
                 'CANCEL',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
               ),
             ),
             TextButton(
@@ -254,9 +254,9 @@ class AlarmSettingsPage extends StatelessWidget {
                 alarmModel.updateDuration(value.toInt());
                 Navigator.pop(context);
               },
-              child: const Text(
+              child: Text(
                 'OK',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
               ),
             ),
           ],

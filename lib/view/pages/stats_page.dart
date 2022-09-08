@@ -6,11 +6,17 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.all(20),
-      child: Center(child: Chart()),
-    ));
+      child: ListView(
+        children: const [
+          Text('Time spent in bed'),
+          Chart(),
+          Text('Sleep quality'),
+          Chart(),
+        ],
+      ),
+    );
   }
 }
 
@@ -51,13 +57,13 @@ class Chart extends StatelessWidget {
               isCurved: true,
               barWidth: 3,
               isStrokeCapRound: true,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               dotData: FlDotData(
                 show: false,
               ),
               belowBarData: BarAreaData(
                 show: true,
-                color: Colors.white.withOpacity(0.2),
+                color: Theme.of(context).colorScheme.surface.withOpacity(0.2),
               ),
             ),
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grododo/theme.dart';
+import 'package:grododo/view/theme.dart';
 import 'package:provider/provider.dart';
 
 import '../model/theme_model.dart';

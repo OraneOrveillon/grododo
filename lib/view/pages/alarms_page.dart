@@ -22,9 +22,6 @@ class AlarmsPage extends StatelessWidget {
     return alarms
         .map(
           (alarm) => Card(
-            color: Colors.white.withOpacity(0.2),
-            shadowColor: Colors.transparent,
-            elevation: 0,
             semanticContainer: true,
             borderOnForeground: true,
             child: ChangeNotifierProvider(
@@ -39,7 +36,6 @@ class AlarmsPage extends StatelessWidget {
                       ),
                     ),
                     Switch(
-                      inactiveTrackColor: Colors.black.withOpacity(0.2),
                       value: alarmModel.alarm.activated,
                       onChanged: (value) {
                         alarmModel.updateActivated(value);

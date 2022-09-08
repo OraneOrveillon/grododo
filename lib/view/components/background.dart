@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BackgroundGradient extends StatelessWidget {
-  const BackgroundGradient({Key? key, required this.child}) : super(key: key);
+class Background extends StatelessWidget {
+  const Background({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 
@@ -9,6 +9,10 @@ class BackgroundGradient extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/clouds.png'),
+          alignment: Alignment.topCenter,
+        ),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

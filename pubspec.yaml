@@ -17,6 +17,7 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_spinbox: ^0.9.0
   fl_chart: ^0.55.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -29,7 +30,5 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/icons/alarm.png
-    - assets/icons/moon.png
-    - assets/icons/settings.png
-    - assets/icons/stats.png
+    - assets/icons/
+    - assets/images/
