@@ -64,7 +64,7 @@ class SleepPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: sizeConfig.blockSizeVertical * 12,
+                    height: sizeConfig.blockSizeVertical * 15,
                   )
                 ],
               ),

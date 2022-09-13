@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/alarm.dart';
 import '../../model/alarm_model.dart';
+import '../components/list_tile.dart';
 import 'alarm_settings_page.dart';
 
 class AlarmsPage extends StatelessWidget {
@@ -22,17 +23,15 @@ class AlarmsPage extends StatelessWidget {
     return alarms
         .map(
           (alarm) => Card(
-            semanticContainer: true,
-            borderOnForeground: true,
             child: ChangeNotifierProvider(
               create: (_) => AlarmModel(alarm: alarm),
               child: Consumer<AlarmModel>(
                 builder: (context, alarmModel, child) => Row(
                   children: [
                     Expanded(
-                      child: ListTile(
-                        title: Text(alarmModel.alarm.time.format(context)),
-                        subtitle: Text(alarmModel.alarm.repetition.toString()),
+                      child: CustomListTile(
+                        titleText: alarmModel.alarm.time.format(context),
+                        subtitleText: alarmModel.alarm.repetition.toString(),
                       ),
                     ),
                     Switch(

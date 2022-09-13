@@ -11,7 +11,8 @@ ThemeData themeData(BuildContext context) {
       tertiary: darkColor,
       surface: lightColor,
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: darkColor.withOpacity(0.7)),
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
@@ -24,9 +25,14 @@ ThemeData themeData(BuildContext context) {
       elevation: 0,
     ),
     cardTheme: CardTheme(
-        color: lightColor.withOpacity(0.2), shadowColor: Colors.transparent, elevation: 0),
+      shape: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.2), width: 1)),
+      color: Colors.transparent, //lightColor.withOpacity(0.2),
+      shadowColor: Colors.transparent,
+      elevation: 0,
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(primaryLightColor),
         shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         )),
@@ -48,8 +54,8 @@ ThemeData themeData(BuildContext context) {
       elevation: 0,
     ),
     splashColor: lightColor.withOpacity(0.5),
-    iconTheme: IconThemeData(
-      color: lightColor.withOpacity(0.8),
+    iconTheme: const IconThemeData(
+      color: lightColor,
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -59,7 +65,7 @@ ThemeData themeData(BuildContext context) {
     timePickerTheme: TimePickerThemeData(
       backgroundColor: lightColor.withOpacity(0.2),
       dialBackgroundColor: lightColor.withOpacity(0.2),
-      dialHandColor: Theme.of(context).colorScheme.primary,
+      dialHandColor: primaryLightColor,
       entryModeIconColor: lightColor,
       dayPeriodColor: primaryLightColor,
       dayPeriodBorderSide: const BorderSide(

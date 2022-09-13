@@ -5,17 +5,27 @@ import 'package:provider/provider.dart';
 import '../../model/alarm.dart';
 import '../../model/alarm_model.dart';
 import '../components/background.dart';
+import '../components/list_tile.dart';
+import '../size_config.dart';
 
 class AlarmSettingsPage extends StatelessWidget {
   const AlarmSettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig sizeConfig = SizeConfig(context);
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Alarm settings'),
+        iconTheme: Theme.of(context).iconTheme,
+        title: Text(
+          'Alarm settings',
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: sizeConfig.blockSizeVertical * 3.5,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
       ),
       body: Background(
         child: Consumer<AlarmModel>(
@@ -23,6 +33,7 @@ class AlarmSettingsPage extends StatelessWidget {
             children: [
               _buildSetting(
                 context: context,
+                sizeConfig: sizeConfig,
                 title: 'Time',
                 subtitle: alarmModel.alarm.time.format(context),
                 leading: const Icon(Icons.access_time_outlined),
@@ -33,6 +44,7 @@ class AlarmSettingsPage extends StatelessWidget {
               ),
               _buildSetting(
                 context: context,
+                sizeConfig: sizeConfig,
                 title: 'Repetition',
                 subtitle: '${alarmModel.alarm.repetition}',
                 leading: const Icon(Icons.repeat),
@@ -48,6 +60,7 @@ class AlarmSettingsPage extends StatelessWidget {
               ),
               _buildSetting(
                 context: context,
+                sizeConfig: sizeConfig,
                 title: 'Duration',
                 subtitle: '${alarmModel.alarm.duration}',
                 leading: const Icon(Icons.timer),
@@ -61,6 +74,7 @@ class AlarmSettingsPage extends StatelessWidget {
               ),
               _buildSetting(
                 context: context,
+                sizeConfig: sizeConfig,
                 title: 'Fade',
                 leading: const Icon(Icons.volume_down),
                 trailing: Switch(
@@ -70,6 +84,7 @@ class AlarmSettingsPage extends StatelessWidget {
               ),
               _buildSetting(
                 context: context,
+                sizeConfig: sizeConfig,
                 title: 'Vibrator',
                 leading: const Icon(Icons.vibration),
                 trailing: Switch(
@@ -86,18 +101,37 @@ class AlarmSettingsPage extends StatelessWidget {
 
   Widget _buildSetting({
     required BuildContext context,
+    required SizeConfig sizeConfig,
     required String title,
     String? subtitle,
     required Widget leading,
     Widget? trailing,
     Function()? onTap,
   }) {
-    return ListTile(
-      title: Text(title),
-      subtitle: subtitle != null ? Text(subtitle) : null,
-      leading: leading,
-      trailing: trailing,
-      onTap: onTap,
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        sizeConfig.blockSizeHorizontal * 2,
+        0,
+        sizeConfig.blockSizeHorizontal * 2,
+        0,
+      ),
+      child: Card(
+        child: InkWell(
+          onTap: onTap,
+          child: Row(
+            children: [
+              leading,
+              Expanded(
+                child: CustomListTile(
+                  titleText: title,
+                  subtitleText: subtitle,
+                ),
+              ),
+              trailing ?? Container(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
