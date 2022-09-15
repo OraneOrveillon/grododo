@@ -29,6 +29,7 @@ ThemeData themeData(BuildContext context) {
       color: Colors.transparent, //lightColor.withOpacity(0.2),
       shadowColor: Colors.transparent,
       elevation: 0,
+      margin: const EdgeInsets.all(0),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -62,8 +63,29 @@ ThemeData themeData(BuildContext context) {
         primary: lightColor,
       ),
     ),
+    dialogTheme: DialogTheme(
+      backgroundColor: darkColor.withOpacity(0.2),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      checkColor: MaterialStateProperty.all(darkColor.withOpacity(0.7)),
+      fillColor: MaterialStateProperty.all(lightColor),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: lightColor,
+          width: 2,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: lightColor,
+          width: 2,
+        ),
+      ),
+    ),
     timePickerTheme: TimePickerThemeData(
-      backgroundColor: lightColor.withOpacity(0.2),
+      backgroundColor: darkColor.withOpacity(0.2),
       dialBackgroundColor: lightColor.withOpacity(0.2),
       dialHandColor: primaryLightColor,
       entryModeIconColor: lightColor,
@@ -71,9 +93,10 @@ ThemeData themeData(BuildContext context) {
       dayPeriodBorderSide: const BorderSide(
         color: Colors.transparent,
       ),
+      dialTextColor: lightColor,
       dayPeriodTextColor: lightColor,
       hourMinuteColor: lightColor.withOpacity(0.2),
-      hourMinuteTextColor: darkColor,
+      hourMinuteTextColor: lightColor,
       helpTextStyle: const TextStyle(color: lightColor),
     ),
     textTheme: GoogleFonts.quicksandTextTheme().apply(bodyColor: darkColor).copyWith(

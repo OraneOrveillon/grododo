@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../model/alarm.dart';
 import '../../model/alarm_model.dart';
 import '../components/background.dart';
+import '../components/dialog.dart';
 import '../components/list_tile.dart';
 import '../size_config.dart';
 
@@ -52,9 +53,7 @@ class AlarmSettingsPage extends StatelessWidget {
                   context: context,
                   builder: (context) => ChangeNotifierProvider<AlarmModel>.value(
                     value: alarmModel,
-                    child: _selectRepetition(
-                      context: context,
-                    ),
+                    child: _selectRepetition(context: context, sizeConfig: sizeConfig),
                   ),
                 ),
               ),
@@ -68,7 +67,7 @@ class AlarmSettingsPage extends StatelessWidget {
                   context: context,
                   builder: (context) => ChangeNotifierProvider<AlarmModel>.value(
                     value: alarmModel,
-                    child: _selectDuration(context: context),
+                    child: _selectDuration(context: context, sizeConfig: sizeConfig),
                   ),
                 ),
               ),
@@ -110,9 +109,9 @@ class AlarmSettingsPage extends StatelessWidget {
   }) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        sizeConfig.blockSizeHorizontal * 2,
+        sizeConfig.blockSizeHorizontal * 3,
         0,
-        sizeConfig.blockSizeHorizontal * 2,
+        sizeConfig.blockSizeHorizontal * 3,
         0,
       ),
       child: Card(
@@ -146,12 +145,13 @@ class AlarmSettingsPage extends StatelessWidget {
     }
   }
 
-  Widget _selectRepetition({required BuildContext context}) {
+  Widget _selectRepetition({required BuildContext context, required SizeConfig sizeConfig}) {
     return Consumer<AlarmModel>(
       builder: (context, alarmModel, child) {
         Repetition repetition = alarmModel.alarm.repetition;
-        return AlertDialog(
-          title: const Text('Repetition'),
+        return CustomDialog(
+          sizeConfig: sizeConfig,
+          titleText: 'Repetition',
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,25 +221,8 @@ class AlarmSettingsPage extends StatelessWidget {
               ),
             ],
           ),
-          actions: [
-            TextButton(
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).colorScheme.tertiary,
-              ),
-              child: const Text('CANCEL'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).colorScheme.tertiary,
-              ),
-              child: const Text('OK'),
-              onPressed: () {
-                // alarmModel.alarm.repetition =
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+          // todo changer la répétition ici et pas dans le onChanged des checkbox
+          onPressedOK: () {},
         );
       },
     );
@@ -257,43 +240,43 @@ class AlarmSettingsPage extends StatelessWidget {
           value: value,
           onChanged: onChanged,
         ),
-        Text(day),
+        Text(
+          day,
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
       ],
     );
   }
 
-  Widget _selectDuration({required BuildContext context}) {
+  Widget _selectDuration({required BuildContext context, required SizeConfig sizeConfig}) {
     return Consumer<AlarmModel>(
       builder: (context, alarmModel, child) {
         double value = alarmModel.alarm.duration.toDouble();
-        return AlertDialog(
-          title: const Text('Duration'),
+        return CustomDialog(
+          sizeConfig: sizeConfig,
+          titleText: 'Duration',
           content: SpinBox(
             min: 5,
             max: 60,
             value: value,
             step: 5,
+            incrementIcon: Icon(
+              Icons.add,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            decrementIcon: Icon(
+              Icons.remove,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  fontSize: sizeConfig.blockSizeVertical * 3,
+                ),
             onChanged: (newValue) => value = newValue,
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                'CANCEL',
-                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                alarmModel.updateDuration(value.toInt());
-                Navigator.pop(context);
-              },
-              child: Text(
-                'OK',
-                style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-              ),
-            ),
-          ],
+          onPressedOK: () {
+            alarmModel.updateDuration(value.toInt());
+            Navigator.pop(context);
+          },
         );
       },
     );
