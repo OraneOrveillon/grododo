@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/alarm.dart';
-import '../../model/alarm_model.dart';
+import '../../viewmodel/alarm_model.dart';
 import '../components/list_tile.dart';
 import 'alarm_settings_page.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/sleep_model.dart';
+import '../../viewmodel/sleep_model.dart';
 import '../size_config.dart';
 
 class SleepPage extends StatelessWidget {

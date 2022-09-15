@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/navbar_index_model.dart';
+import '../../viewmodel/navbar_index_model.dart';
 import '../components/background.dart';
 import '../size_config.dart';
 import 'alarms_page.dart';

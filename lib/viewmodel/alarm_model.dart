@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'alarm.dart';
+import '../model/alarm.dart';
 
 class AlarmModel extends ChangeNotifier {
   final Alarm alarm;

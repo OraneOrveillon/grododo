@@ -3,7 +3,8 @@ import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/alarm.dart';
-import '../../model/alarm_model.dart';
+import '../../viewmodel/alarm_model.dart';
+import '../../viewmodel/checkbox_model.dart';
 import '../components/background.dart';
 import '../components/dialog.dart';
 import '../components/list_tile.dart';
@@ -98,6 +99,7 @@ class AlarmSettingsPage extends StatelessWidget {
     );
   }
 
+  // todo : widget à part
   Widget _buildSetting({
     required BuildContext context,
     required SizeConfig sizeConfig,
@@ -149,102 +151,34 @@ class AlarmSettingsPage extends StatelessWidget {
     return Consumer<AlarmModel>(
       builder: (context, alarmModel, child) {
         Repetition repetition = alarmModel.alarm.repetition;
+        List<RepetitionDay> days = [
+          RepetitionDay(context: context, initialValue: repetition.monday, day: 'Monday'),
+          RepetitionDay(context: context, initialValue: repetition.tuesday, day: 'Tuesday'),
+          RepetitionDay(context: context, initialValue: repetition.wednesday, day: 'Wednesday'),
+          RepetitionDay(context: context, initialValue: repetition.thursday, day: 'Thursday'),
+          RepetitionDay(context: context, initialValue: repetition.friday, day: 'Friday'),
+          RepetitionDay(context: context, initialValue: repetition.saturday, day: 'Saturday'),
+          RepetitionDay(context: context, initialValue: repetition.sunday, day: 'Sunday'),
+        ];
         return CustomDialog(
           sizeConfig: sizeConfig,
           titleText: 'Repetition',
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.monday,
-                day: 'Monday',
-                onChanged: (value) {
-                  repetition.monday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.tuesday,
-                day: 'Tuesday',
-                onChanged: (value) {
-                  repetition.tuesday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.wednesday,
-                day: 'Wednesday',
-                onChanged: (value) {
-                  repetition.wednesday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.thursday,
-                day: 'Thursday',
-                onChanged: (value) {
-                  repetition.thursday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.friday,
-                day: 'Friday',
-                onChanged: (value) {
-                  repetition.friday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.saturday,
-                day: 'Saturday',
-                onChanged: (value) {
-                  repetition.saturday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-              _buildRepetitionDay(
-                context: context,
-                value: repetition.sunday,
-                day: 'Sunday',
-                onChanged: (value) {
-                  repetition.sunday = value!;
-                  alarmModel.updateRepetition(repetition);
-                },
-              ),
-            ],
+            children: days,
           ),
-          // todo changer la répétition ici et pas dans le onChanged des checkbox
-          onPressedOK: () {},
+          onPressedOK: () => alarmModel.updateRepetition(Repetition(
+            monday: days[0].checkboxModel.isChecked,
+            tuesday: days[1].checkboxModel.isChecked,
+            wednesday: days[2].checkboxModel.isChecked,
+            thursday: days[3].checkboxModel.isChecked,
+            friday: days[4].checkboxModel.isChecked,
+            saturday: days[5].checkboxModel.isChecked,
+            sunday: days[6].checkboxModel.isChecked,
+          )),
         );
       },
-    );
-  }
-
-  Widget _buildRepetitionDay({
-    required BuildContext context,
-    required bool value,
-    required String day,
-    required Function(bool?) onChanged,
-  }) {
-    return Row(
-      children: [
-        Checkbox(
-          value: value,
-          onChanged: onChanged,
-        ),
-        Text(
-          day,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
     );
   }
 
@@ -273,12 +207,42 @@ class AlarmSettingsPage extends StatelessWidget {
                 ),
             onChanged: (newValue) => value = newValue,
           ),
-          onPressedOK: () {
-            alarmModel.updateDuration(value.toInt());
-            Navigator.pop(context);
-          },
+          onPressedOK: () => alarmModel.updateDuration(value.toInt()),
         );
       },
+    );
+  }
+}
+
+class RepetitionDay extends StatelessWidget {
+  RepetitionDay({Key? key, required this.context, required this.day, required bool initialValue})
+      : super(key: key) {
+    checkboxModel = CheckboxModel(isChecked: initialValue);
+  }
+
+  final BuildContext context;
+  final String day;
+  late final CheckboxModel checkboxModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider.value(
+      value: checkboxModel,
+      child: Row(
+        children: [
+          Consumer<CheckboxModel>(
+            builder: (context, checkboxModel, child) => Checkbox(
+              value: checkboxModel.isChecked,
+              onChanged: (value) => checkboxModel.updateIsChecked(),
+              // onChanged: onChanged,
+            ),
+          ),
+          Text(
+            day,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      ),
     );
   }
 }
