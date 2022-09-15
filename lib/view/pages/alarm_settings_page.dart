@@ -99,7 +99,6 @@ class AlarmSettingsPage extends StatelessWidget {
     );
   }
 
-  // todo : widget à part
   Widget _buildSetting({
     required BuildContext context,
     required SizeConfig sizeConfig,
