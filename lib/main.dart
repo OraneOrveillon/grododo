@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:grododo/view/theme.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+import 'model/alarm.dart';
+import 'model/sleep.dart';
 import 'view/pages/navbar.dart';
 import 'viewmodel/theme_model.dart';
 
 void main() {
+  Hive.registerAdapter(AlarmAdapter());
+  Hive.registerAdapter(SleepAdapter());
+
   runApp(const MyApp());
 }
 

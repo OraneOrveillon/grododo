@@ -29,49 +29,49 @@ class NavBar extends StatelessWidget {
       child: Consumer<NavigationBarIndexModel>(
         builder: (context, indexModel, child) => Scaffold(
           extendBody: true,
-          bottomNavigationBar: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 1,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.transparent,
-                      Theme.of(context).colorScheme.surface.withOpacity(0.2),
-                      Theme.of(context).colorScheme.surface.withOpacity(0.2),
-                      Theme.of(context).colorScheme.surface.withOpacity(0.2),
-                      Colors.transparent,
-                    ],
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: Theme.of(context).colorScheme.surface.withOpacity(0.2),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: BottomNavigationBar(
+              currentIndex: indexModel.index,
+              onTap: (index) => indexModel.updateIndex(newIndex: index),
+              items: [
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
+                    child: const ImageIcon(AssetImage('assets/icons/alarm.png')),
                   ),
+                  label: _labels[0],
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical),
-                child: BottomNavigationBar(
-                  currentIndex: indexModel.index,
-                  onTap: (index) => indexModel.updateIndex(newIndex: index),
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: const ImageIcon(AssetImage('assets/icons/alarm.png')),
-                      label: _labels[0],
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const ImageIcon(AssetImage('assets/icons/moon.png')),
-                      label: _labels[1],
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const ImageIcon(AssetImage('assets/icons/stats.png')),
-                      label: _labels[2],
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const ImageIcon(AssetImage('assets/icons/settings.png')),
-                      label: _labels[3],
-                    ),
-                  ],
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
+                    child: const ImageIcon(AssetImage('assets/icons/moon.png')),
+                  ),
+                  label: _labels[1],
                 ),
-              ),
-            ],
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
+                    child: const ImageIcon(AssetImage('assets/icons/stats.png')),
+                  ),
+                  label: _labels[2],
+                ),
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
+                    child: const ImageIcon(AssetImage('assets/icons/settings.png')),
+                  ),
+                  label: _labels[3],
+                ),
+              ],
+            ),
           ),
           body: Background(
             child: _navPages[indexModel.index],

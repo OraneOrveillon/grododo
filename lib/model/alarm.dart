@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
+part 'alarm.g.dart';
+
+@HiveType(typeId: 0)
 class Alarm {
+  @HiveField(0)
   TimeOfDay time;
+  @HiveField(1)
   Repetition repetition;
+  @HiveField(2)
   int duration;
+  @HiveField(3)
   bool activated;
+  @HiveField(4)
   bool fade;
+  @HiveField(5)
   bool vibrator;
 
   Alarm({
@@ -16,6 +26,13 @@ class Alarm {
     this.fade = false,
     this.vibrator = false,
   });
+
+  /// Default alarm when a new one is created
+  factory Alarm.base() => Alarm(
+        time: const TimeOfDay(hour: 20, minute: 0),
+        repetition: Repetition(),
+        duration: 10,
+      );
 
   static List<Alarm> generateRandomAlarms() {
     return [
@@ -55,8 +72,22 @@ class Alarm {
   }
 }
 
+@HiveType(typeId: 1)
 class Repetition {
-  bool monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+  @HiveField(0)
+  bool monday;
+  @HiveField(1)
+  bool tuesday;
+  @HiveField(2)
+  bool wednesday;
+  @HiveField(3)
+  bool thursday;
+  @HiveField(4)
+  bool friday;
+  @HiveField(5)
+  bool saturday;
+  @HiveField(6)
+  bool sunday;
 
   Repetition({
     this.monday = false,

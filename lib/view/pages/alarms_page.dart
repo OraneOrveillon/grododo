@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grododo/view/size_config.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/alarm.dart';
@@ -12,9 +13,30 @@ class AlarmsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> alarms = _generateAlarmsExample(context);
-    return ListView.builder(
-      itemCount: alarms.length,
-      itemBuilder: (context, index) => alarms[index],
+    SizeConfig sizeConfig = SizeConfig(context);
+    return Stack(
+      children: [
+        ListView.builder(
+          itemCount: alarms.length,
+          itemBuilder: (context, index) => alarms[index],
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: sizeConfig.blockSizeVertical * 12),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all(const CircleBorder()),
+                minimumSize: MaterialStateProperty.all(
+                  Size.square(sizeConfig.blockSizeVertical * 8),
+                ),
+              ),
+              onPressed: () => _goToAlarmSettingsPage(context, AlarmModel(alarm: Alarm.base())),
+              child: const Icon(Icons.add),
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -54,16 +76,14 @@ class AlarmsPage extends StatelessWidget {
                       icon: const Icon(
                         Icons.edit,
                       ),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          /// To pass a model through a different route
-                          builder: (context) => ChangeNotifierProvider<AlarmModel>.value(
-                            value: alarmModel,
-                            child: const AlarmSettingsPage(),
-                          ),
-                        ),
+                      onPressed: () => _goToAlarmSettingsPage(context, alarmModel),
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.delete,
                       ),
+                      // todo
+                      onPressed: () => {},
                     ),
                   ],
                 ),
@@ -72,5 +92,18 @@ class AlarmsPage extends StatelessWidget {
           ),
         )
         .toList();
+  }
+
+  void _goToAlarmSettingsPage(BuildContext context, AlarmModel alarmModel) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        /// To pass a model through a different route
+        builder: (context) => ChangeNotifierProvider<AlarmModel>.value(
+          value: alarmModel,
+          child: const AlarmSettingsPage(),
+        ),
+      ),
+    );
   }
 }

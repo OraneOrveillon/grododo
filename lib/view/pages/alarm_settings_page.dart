@@ -62,7 +62,7 @@ class AlarmSettingsPage extends StatelessWidget {
                 context: context,
                 sizeConfig: sizeConfig,
                 title: 'Duration',
-                subtitle: '${alarmModel.alarm.duration}',
+                subtitle: '${alarmModel.alarm.duration} min',
                 leading: const Icon(Icons.timer),
                 onTap: () => showDialog(
                   context: context,
@@ -187,7 +187,7 @@ class AlarmSettingsPage extends StatelessWidget {
         double value = alarmModel.alarm.duration.toDouble();
         return CustomDialog(
           sizeConfig: sizeConfig,
-          titleText: 'Duration',
+          titleText: 'Duration (min)',
           content: SpinBox(
             min: 5,
             max: 60,
