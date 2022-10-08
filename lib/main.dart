@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:grododo/view/theme.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'model/alarm.dart';
@@ -8,9 +11,15 @@ import 'model/sleep.dart';
 import 'view/pages/navbar.dart';
 import 'viewmodel/theme_model.dart';
 
-void main() {
-  Hive.registerAdapter(AlarmAdapter());
-  Hive.registerAdapter(SleepAdapter());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final Directory directory = await getApplicationDocumentsDirectory();
+  Hive
+    ..init(directory.path)
+    ..registerAdapter(TimeOfDayAdapter())
+    ..registerAdapter(AlarmAdapter())
+    ..registerAdapter(RepetitionAdapter())
+    ..registerAdapter(SleepAdapter());
 
   runApp(const MyApp());
 }
