@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:grododo/view/size_config.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/alarm.dart';
+import '../../viewmodel/alarm_hive.dart';
 import '../../viewmodel/alarm_model.dart';
 import '../components/list_tile.dart';
 import 'alarm_settings_page.dart';
 
 class AlarmsPage extends StatelessWidget {
-  const AlarmsPage({Key? key}) : super(key: key);
+  const AlarmsPage({Key? key, required this.box}) : super(key: key);
+
+  final Box<Alarm> box;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,8 @@ class AlarmsPage extends StatelessWidget {
                   Size.square(sizeConfig.blockSizeVertical * 8),
                 ),
               ),
-              onPressed: () => _goToAlarmSettingsPage(context, AlarmModel(alarm: Alarm.base())),
+              onPressed: () => _goToAlarmSettingsPage(
+                  context, AlarmModel(alarm: Alarm.base())),
               child: const Icon(Icons.add),
             ),
           ),
@@ -42,6 +47,8 @@ class AlarmsPage extends StatelessWidget {
 
   List<Widget> _generateAlarmsExample(BuildContext context) {
     List<Alarm> alarms = Alarm.generateRandomAlarms();
+    final AlarmHive alarmHive = AlarmHive(box);
+    alarms = alarmHive.alarms;
     return alarms
         .map(
           (alarm) => Card(
@@ -76,7 +83,8 @@ class AlarmsPage extends StatelessWidget {
                       icon: const Icon(
                         Icons.edit,
                       ),
-                      onPressed: () => _goToAlarmSettingsPage(context, alarmModel),
+                      onPressed: () =>
+                          _goToAlarmSettingsPage(context, alarmModel),
                     ),
                     IconButton(
                       icon: const Icon(

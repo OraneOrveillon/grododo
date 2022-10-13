@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'alarm.dart';
+part of '../alarm.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -50,9 +50,7 @@ class AlarmAdapter extends TypeAdapter<Alarm> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is AlarmAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is AlarmAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
 
 class RepetitionAdapter extends TypeAdapter<Repetition> {
@@ -102,7 +100,5 @@ class RepetitionAdapter extends TypeAdapter<Repetition> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RepetitionAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is RepetitionAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

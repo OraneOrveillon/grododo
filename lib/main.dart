@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:grododo/view/theme.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'model/alarm.dart';
 import 'model/sleep.dart';
 import 'view/pages/navbar.dart';
+import 'view/theme.dart';
+import 'viewmodel/alarm_hive.dart';
 import 'viewmodel/theme_model.dart';
 
 Future<void> main() async {
@@ -21,11 +22,18 @@ Future<void> main() async {
     ..registerAdapter(RepetitionAdapter())
     ..registerAdapter(SleepAdapter());
 
-  runApp(const MyApp());
+  // TODO enlever après si ça marche pas
+  Box<Alarm> box = await Hive.openBox<Alarm>('alarms');
+  // var alarmHive = AlarmHive(box);
+  // print(alarmHive.alarms);
+
+  runApp(MyApp(box: box));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.box}) : super(key: key);
+
+  final Box<Alarm> box;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +46,7 @@ class MyApp extends StatelessWidget {
           theme: themeData(context),
           darkTheme: darkThemeData(context),
           themeMode: themeModel.isLightTheme ? ThemeMode.light : ThemeMode.dark,
-          home: NavBar(),
+          home: NavBar(box: box),
         ),
       ),
     );

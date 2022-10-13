@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'sleep.g.dart';
+part 'adapters/sleep.g.dart';
 
 @HiveType(typeId: 2)
 class Sleep {

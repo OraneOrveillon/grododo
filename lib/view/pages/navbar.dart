@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/alarm.dart';
 import '../../viewmodel/navbar_index_model.dart';
 import '../components/background.dart';
 import '../size_config.dart';
@@ -10,14 +12,16 @@ import 'sleep_page.dart';
 import 'stats_page.dart';
 
 class NavBar extends StatelessWidget {
-  NavBar({Key? key}) : super(key: key);
+  NavBar({Key? key, required Box<Alarm> box}) : super(key: key) {
+    _navPages = [
+      AlarmsPage(box: box),
+      const SleepPage(),
+      const StatsPage(),
+      const SettingsPage(),
+    ];
+  }
 
-  final List<Widget> _navPages = [
-    const AlarmsPage(),
-    const SleepPage(),
-    const StatsPage(),
-    const SettingsPage(),
-  ];
+  late final List<Widget> _navPages;
 
   final List<String> _labels = ['Alarms', 'Sleep', 'Statistics', 'Settings'];
 
@@ -44,29 +48,36 @@ class NavBar extends StatelessWidget {
               items: [
                 BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
-                    child: const ImageIcon(AssetImage('assets/icons/alarm.png')),
+                    padding: EdgeInsets.only(
+                        top: sizeConfig.blockSizeVertical * 0.5),
+                    child:
+                        const ImageIcon(AssetImage('assets/icons/alarm.png')),
                   ),
                   label: _labels[0],
                 ),
                 BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
+                    padding: EdgeInsets.only(
+                        top: sizeConfig.blockSizeVertical * 0.5),
                     child: const ImageIcon(AssetImage('assets/icons/moon.png')),
                   ),
                   label: _labels[1],
                 ),
                 BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
-                    child: const ImageIcon(AssetImage('assets/icons/stats.png')),
+                    padding: EdgeInsets.only(
+                        top: sizeConfig.blockSizeVertical * 0.5),
+                    child:
+                        const ImageIcon(AssetImage('assets/icons/stats.png')),
                   ),
                   label: _labels[2],
                 ),
                 BottomNavigationBarItem(
                   icon: Padding(
-                    padding: EdgeInsets.only(top: sizeConfig.blockSizeVertical * 0.5),
-                    child: const ImageIcon(AssetImage('assets/icons/settings.png')),
+                    padding: EdgeInsets.only(
+                        top: sizeConfig.blockSizeVertical * 0.5),
+                    child: const ImageIcon(
+                        AssetImage('assets/icons/settings.png')),
                   ),
                   label: _labels[3],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-part 'alarm.g.dart';
+part 'adapters/alarm.g.dart';
 
 @HiveType(typeId: 0)
 class Alarm {

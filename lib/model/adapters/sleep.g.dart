@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sleep.dart';
+part of '../sleep.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -41,7 +41,5 @@ class SleepAdapter extends TypeAdapter<Sleep> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SleepAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is SleepAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
